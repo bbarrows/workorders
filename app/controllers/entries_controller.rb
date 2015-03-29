@@ -1,11 +1,16 @@
 class EntriesController < ApplicationController
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, only: [:create, :new, :edit, :update, :destroy, :index, :show]
+  before_filter :authenticate_user!, only: [:all, :create, :new, :edit, :update, :destroy, :index, :show]
+
+  def all
+    @entries = Entry.joins(:ticket).where('tickets.user_id' => current_user.id)
+  end
 
   # GET /entries
   # GET /entries.json
   def index
-    @entries = Entry.all
+    @ticket = Ticket.find(params[:ticket_id])
+    @entries = @ticket.entries
   end
 
   # GET /entries/1
@@ -15,6 +20,7 @@ class EntriesController < ApplicationController
 
   # GET /entries/new
   def new
+    @ticket = Ticket.find(params[:ticket_id])
     @entry = Entry.new
   end
 
@@ -25,11 +31,16 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
+    @ticket = Ticket.find(params[:ticket_id])
     @entry = Entry.new(entry_params)
+    @entry.ticket_id = @ticket.id
 
     respond_to do |format|
-      if @entry.save
-        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
+      if @entry.any_overylap?
+        format.html { render :new, notice: 'Entry overlapped with existing entry.' }
+        format.json { render json: @entry.errors, status: :unprocessable_entity }
+      elsif @entry.save
+        format.html { redirect_to @ticket, notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @entry }
       else
         format.html { render :new }
@@ -43,7 +54,7 @@ class EntriesController < ApplicationController
   def update
     respond_to do |format|
       if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
+        format.html { redirect_to @ticket, notice: 'Entry was successfully updated.' }
         format.json { render :show, status: :ok, location: @entry }
       else
         format.html { render :edit }
@@ -57,7 +68,7 @@ class EntriesController < ApplicationController
   def destroy
     @entry.destroy
     respond_to do |format|
-      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
+      format.html { redirect_to @ticket, notice: 'Entry was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,7 +76,8 @@ class EntriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_entry
-      @entry = Entry.find(params[:id])
+      @ticket = Ticket.find(params[:ticket_id]) #params[:ticket_id] ? Ticket.find(params[:ticket_id]) : nil
+      @entry = Entry.find(params[:entry_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

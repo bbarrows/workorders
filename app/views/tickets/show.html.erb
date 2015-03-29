@@ -45,8 +45,8 @@ Entries
       <tr>
         <td><%= entry.start %></td>
         <td><%= entry.end %></td>
-        <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
-        <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_ticket_entry_path(@ticket, entry) %></td>
+        <td><%= link_to 'Destroy', ticket_entry_path(@ticket, entry), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -25,7 +25,7 @@ class TicketsController < ApplicationController
 
   def entry
     @entry = Entry.new(entry_params)
-    @ticket = Ticket.find(params[:id])
+    @ticket = Ticket.find(params[:ticket_id])
     @entry.ticket_id = @ticket.id
 
     respond_to do |format|
@@ -83,7 +83,7 @@ class TicketsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
-      @ticket = Ticket.find(params[:id])
+      @ticket = Ticket.find(params[:ticket_id])
       @ticket_user = User.find(@ticket.user_id)
     end
 

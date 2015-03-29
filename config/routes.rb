@@ -1,13 +1,26 @@
 Rails.application.routes.draw do
-  resources :entries
-  resources :tickets
+  #resources :entries
+  #resources :tickets
   devise_for :users
 
+  #resources :tickets do
+  #  member do
+  #    post 'entry' => 'ticket#entry'
+  #  end
+  #end
+
+  get '/allentries' => 'entries#all'
+
+  resources :tickets, param: :ticket_id
+
   resources :tickets do
-    member do
-      post 'entry' => 'ticket#entry'
-    end
+    resources :entries, param: :entry_id
   end
+
+  #resources :tickets, param: :ticket_id
+  #resources :tickets, param: :ticket_id do
+  #  resource :entries, param: :entry_id
+  #end
 
   root to: "tickets#index"
 
