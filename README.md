@@ -1,3 +1,8 @@
+Following:
+
+https://www.railstutorial.org/book/user_microposts
+
+
 Work Order should be called Job Ticket
 
 User
@@ -10,13 +15,20 @@ Job Ticket
 	Employee #   Auto Populate this from the user account
 	Quantity
 
-rails generate model Ticket date:date work_order:string job_code:string quantity:integer user:references
+
 
 Entry
 	Start time
 	End time
 
-rails generate model Entry start:datetime end:datetime ticket:references
+
+
+rails generate scaffold Ticket date:date work_order:string job_code:string quantity:integer user:references
+rails generate scaffold Entry start:datetime end:datetime ticket:references
+rake db:migrate
+
+
+
 
 
 Make sure all entry times ACROSS JOB TICKETS for the SAME USER do not conflict
@@ -48,3 +60,8 @@ run:
 gem install rails
 bundle install
 rails g devise:install
+
+
+sudo mv nginxrc.sh /etc/init.d/nginx
+sudo chmod +x /etc/init.d/nginx
+sudo /usr/sbin/update-rc.d -f nginx defaults

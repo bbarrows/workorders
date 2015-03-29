@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @ticket.date %>
+</p>
+
+<p>
+  <strong>Work order:</strong>
+  <%= @ticket.work_order %>
+</p>
+
+<p>
+  <strong>Job code:</strong>
+  <%= @ticket.job_code %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @ticket.quantity %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @ticket.user ? @ticket.user.email : "" %>
+</p>
+
+New Entry
+
+<%= render 'entry_form' %>
+
+Entries
+
+<table>
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ticket.entries.each do |entry| %>
+      <tr>
+        <td><%= entry.start %></td>
+        <td><%= entry.end %></td>
+        <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
+        <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit ticket', edit_ticket_path(@ticket) %> |
+<%= link_to 'Back', tickets_path %>

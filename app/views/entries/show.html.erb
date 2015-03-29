@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @entry.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @entry.end %>
+</p>
+
+<p>
+  <strong>Ticket:</strong>
+  <%= @entry.ticket %>
+</p>
+
+<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%= link_to 'Back', entries_path %>
