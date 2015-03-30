@@ -33,6 +33,23 @@
 
 <br>
 
-<%= link_to 'View ALL Time Entries for ALL Tickets for logged in user', allentries_path %> | 
+<p>
+View all tickets starting 24 hours after:
+<%= form_tag(alltickets24_path()) do %>
+  <div class="field">
+    <%= label_tag(:q, "Start date:") %><br>
+    <%= select_date Date.today, prefix: :date %>
+  </div>
+  <div class="actions">
+    <%= submit_tag("Search") %>
+  </div>
+<% end %>
+</p>
 
+<p>
+<%= link_to 'View ALL Time Entries for ALL Tickets for logged in user', allentries_path %>
+</p>
+
+<p>
 <%= link_to 'New Ticket', new_ticket_path %>
+</p>

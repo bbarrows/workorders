@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, only: [:all, :create, :new, :edit, :update, :destroy, :index, :show]
+  before_filter :authenticate_user! #, only: [:all, :create, :new, :edit, :update, :destroy, :index, :show]
 
   def all
     @entries = Entry.joins(:ticket).where('tickets.user_id' => current_user.id)
@@ -36,10 +36,7 @@ class EntriesController < ApplicationController
     @entry.ticket_id = @ticket.id
 
     respond_to do |format|
-      if @entry.any_overylap?
-        format.html { render :new, notice: 'Entry overlapped with existing entry.' }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
-      elsif @entry.save
+      if @entry.save
         format.html { redirect_to @ticket, notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @entry }
       else

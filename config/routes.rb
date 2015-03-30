@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   #  end
   #end
 
+  post '/alltickets24' => 'tickets#all24'
+
   get '/allentries' => 'entries#all'
 
   resources :tickets, param: :ticket_id

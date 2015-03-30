@@ -2,6 +2,13 @@ class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! #, only: [:create, :new, :edit, :update, :destroy, :index, :show]
 
+
+  def all24
+    event = params[:date]
+    @start_date = Date.new event["year"].to_i, event["month"].to_i, event["day"].to_i
+    @tickets = Ticket.where(:date => @start_date..@start_date.tomorrow)
+  end
+
   # GET /tickets
   # GET /tickets.json
   def index
