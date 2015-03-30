@@ -31,8 +31,12 @@
   </tbody>
 </table>
 
-<br>
+<p>
+<%= link_to 'New Ticket', new_ticket_path %>
+</p>
 
+<br>
+<hr>
 <p>
 View all tickets starting 24 hours after:
 <%= form_tag(alltickets24_path()) do %>
@@ -46,10 +50,7 @@ View all tickets starting 24 hours after:
 <% end %>
 </p>
 
+<hr>
 <p>
 <%= link_to 'View ALL Time Entries for ALL Tickets for logged in user', allentries_path %>
-</p>
-
-<p>
-<%= link_to 'New Ticket', new_ticket_path %>
 </p>
