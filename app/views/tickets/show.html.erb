@@ -1,3 +1,4 @@
+<h2>Ticket <%=@ticket.id %></h2>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -25,11 +26,20 @@
   <%= @ticket.user ? @ticket.user.email : "" %>
 </p>
 
-New Entry
+
+<%= link_to 'Edit ticket', edit_ticket_path(@ticket), class: 'btn btn-success' %>
+
+<br>
+<hr>
+
+<h3>New Entry</h3>
 
 <%= render 'entry_form' %>
 
-Entries
+<br>
+<hr>
+
+<h3>Entries for current ticket</h3>
 
 <table>
   <thead>
@@ -45,12 +55,14 @@ Entries
       <tr>
         <td><%= entry.start %></td>
         <td><%= entry.end %></td>
-        <td><%= link_to 'Edit', edit_ticket_entry_path(@ticket, entry) %></td>
-        <td><%= link_to 'Destroy', ticket_entry_path(@ticket, entry), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_ticket_entry_path(@ticket, entry), class: 'btn btn-success' %></td>
+        <td><%= link_to 'Destroy', ticket_entry_path(@ticket, entry), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Edit ticket', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<br>
+<hr>
+
+<%= link_to 'Back', tickets_path, class: 'btn btn-info' %>

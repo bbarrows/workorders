@@ -15,24 +15,12 @@
   </thead>
 
   <tbody>
-    <% @tickets.each do |ticket| %>
-    <% email = ticket.user ? ticket.user.email : "" %>
-      <tr>
-        <td><%= ticket.date %></td>
-        <td><%= ticket.work_order %></td>
-        <td><%= ticket.job_code %></td>
-        <td><%= ticket.quantity %></td>
-        <td><%= email %></td>
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <%= render 'ticket_body' %>
   </tbody>
 </table>
 
 <p>
-<%= link_to 'New Ticket', new_ticket_path %>
+<%= link_to 'New Ticket', new_ticket_path, class: 'btn btn-success' %>
 </p>
 
 <br>
@@ -50,7 +38,29 @@ View all tickets starting 24 hours after:
 <% end %>
 </p>
 
+
+
+<br>
 <hr>
 <p>
-<%= link_to 'View ALL Time Entries for ALL Tickets for logged in user', allentries_path %>
+Download CSV of all tickets and entries between:
+<%= form_tag(searchtickets_path()) do %>
+  <div class="field">
+    <%= label_tag(:q, "Start date:") %><br>
+    <%= select_date Date.today, prefix: :start_date %>
+  </div>
+  <div class="field">
+    <%= label_tag(:q, "End date:") %><br>
+    <%= select_date Date.tomorrow, prefix: :end_date %>
+  </div>
+  <div class="actions">
+    <%= submit_tag("Download") %>
+  </div>
+<% end %>
+</p>
+
+
+<hr>
+<p>
+<%= link_to 'View All Time Entries current user', allentries_path, class: 'btn btn-primary' %>
 </p>

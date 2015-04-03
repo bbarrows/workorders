@@ -15,22 +15,10 @@
   </thead>
 
   <tbody>
-    <% @tickets.each do |ticket| %>
-    <% email = ticket.user ? ticket.user.email : "" %>
-      <tr>
-        <td><%= ticket.date %></td>
-        <td><%= ticket.work_order %></td>
-        <td><%= ticket.job_code %></td>
-        <td><%= ticket.quantity %></td>
-        <td><%= email %></td>
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <%= render 'ticket_body' %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'Back', "/" %>
+<%= link_to 'Back', "/", class: 'btn btn-info' %>

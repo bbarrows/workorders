@@ -17,10 +17,10 @@
       <tr>
         <td><%= entry.start %></td>
         <td><%= entry.end %></td>
-        <td><%= entry.ticket ? entry.ticket.id : "?" %></td>
-        <td><%= link_to 'Show', ticket_entry_path(entry.ticket, entry) %></td>
-        <td><%= link_to 'Edit', edit_ticket_entry_path(entry.ticket, entry) %></td>
-        <td><%= link_to 'Destroy', ticket_entry_path(entry.ticket, entry), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to entry.ticket.id.to_s, entry.ticket, class: 'btn btn-primary'  %></td>
+        <td><%= link_to 'Show entry', ticket_entry_path(entry.ticket, entry), class: 'btn btn-primary'  %></td>
+        <td><%= link_to 'Edit entry', edit_ticket_entry_path(entry.ticket, entry), class: 'btn btn-success'  %></td>
+        <td><%= link_to 'Destroy entry', ticket_entry_path(entry.ticket, entry), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'Back', "/" %>
+<%= link_to 'Back', "/", class: 'btn btn-info' %>

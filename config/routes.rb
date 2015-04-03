@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   #  end
   #end
 
+  post '/searchtickets' => 'tickets#searchtickets'
   post '/alltickets24' => 'tickets#all24'
 
   get '/allentries' => 'entries#all'

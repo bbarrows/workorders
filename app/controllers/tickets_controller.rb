@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  include TicketsHelper
   before_action :set_ticket, only: [:csv, :show, :edit, :update, :destroy]
   before_filter :authenticate_user! #, only: [:create, :new, :edit, :update, :destroy, :index, :show]
 
@@ -10,6 +11,18 @@ class TicketsController < ApplicationController
       format.csv { render text: @ticket.to_csv }
     end
     #render text: @work_order.to_csv
+  end
+
+  def searchtickets
+    start_date_post = params[:start_date]
+    end_date_post = params[:end_date]
+    @start_date = Date.new start_date_post["year"].to_i, start_date_post["month"].to_i, start_date_post["day"].to_i
+    @end_date = Date.new end_date_post["year"].to_i, end_date_post["month"].to_i, end_date_post["day"].to_i
+    @tickets = Ticket.where(:date => @start_date..@end_date)
+
+    response.headers['Content-Type'] = 'text/csv'
+    response.headers['Content-Disposition'] = 'attachment; filename=tickets.csv'
+    render text: tickets_to_csv(@tickets)
   end
 
   def all24
@@ -28,6 +41,10 @@ class TicketsController < ApplicationController
   # GET /tickets/1.json
   def show
     @entry = Entry.new
+    respond_to do |format|
+      format.html
+      format.csv { render text: @ticket.to_csv }
+    end
   end
 
   # GET /tickets/new
