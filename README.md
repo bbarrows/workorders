@@ -46,6 +46,27 @@ Export CSV
 Make sure all links work, delete I guess
 
 
+Server for this is at:
+
+sshrackspace
+
+alias sshrackspace='ssh root@104.130.225.97'
+
+ai -y mysql-server-5.6 libmysqlclient-dev
+mysql -uroot -ppassword
+CREATE DATABASE workorders;
+
+su -  bbarrows
+cd workorders
+git reset --hard HEAD
+git pull
+
+export RAILS_ENV=production
+RAILS_ENV=production bundle install
+#might not be necessary
+#rails g devise:install
+RAILS_ENV=production rake db:migrate
+RAILS_ENV=production bundle exec rake assets:precompile
 
 INSTALL:
 

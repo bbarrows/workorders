@@ -43,6 +43,9 @@ group :development, :test do
   gem 'spring'
 end
 
+group :production do
+  gem 'mysql'
+end
 
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.2.0'
