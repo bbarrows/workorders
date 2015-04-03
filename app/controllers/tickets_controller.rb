@@ -1,7 +1,16 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_ticket, only: [:csv, :show, :edit, :update, :destroy]
   before_filter :authenticate_user! #, only: [:create, :new, :edit, :update, :destroy, :index, :show]
 
+
+  def csv
+    # http://railscasts.com/episodes/362-exporting-csv-and-excel?view=asciicast
+    respond_to do |format|
+      format.html
+      format.csv { render text: @ticket.to_csv }
+    end
+    #render text: @work_order.to_csv
+  end
 
   def all24
     event = params[:date]

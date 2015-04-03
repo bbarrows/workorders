@@ -30,14 +30,20 @@ rake db:migrate
 
 
 
-
+DONE:
 Make sure all entry times ACROSS JOB TICKETS for the SAME USER do not conflict
 
 Add feature to pull up all Job Tickets and Entry with end time in set 24 hour range
 
 Start time and End time are filled in and valid time
 
+TODO:
+Export CSV
+	By day, group by user,
 
+	https://docs.google.com/spreadsheets/d/1jorV27kD6EGwTusgHrZWTj4UHHy4BRH-TBZ2VspAwJw/edit#gid=667278848
+
+Make sure all links work, delete I guess
 
 
 
