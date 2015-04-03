@@ -1,0 +1,13 @@
+<% @tickets.each do |ticket| %>
+<% email = ticket.user ? ticket.user.email : "" %>
+  <tr>
+    <td><%= ticket.date %></td>
+    <td><%= ticket.work_order %></td>
+    <td><%= ticket.job_code %></td>
+    <td><%= ticket.quantity %></td>
+    <td><%= email %></td>
+    <td><%= link_to 'Show', ticket, class: 'btn btn-primary' %></td>
+    <td><%= link_to 'Edit', edit_ticket_path(ticket), class: 'btn btn-success' %></td>
+    <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+  </tr>
+<% end %>
