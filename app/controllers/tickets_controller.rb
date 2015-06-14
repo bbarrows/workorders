@@ -18,23 +18,60 @@ class TicketsController < ApplicationController
     end_date_post = params[:end_date]
     @start_date = Date.new start_date_post["year"].to_i, start_date_post["month"].to_i, start_date_post["day"].to_i
     @end_date = Date.new end_date_post["year"].to_i, end_date_post["month"].to_i, end_date_post["day"].to_i
-    @tickets = Ticket.where(:date => @start_date..@end_date)
-
+    
+    # If admin then get all tickets
+    if current_user.id == 1 then
+      @tickets = Ticket.where(:date => @start_date..@end_date)
+    # Otherwise just get for current user:
+    # @ticket.user_id = current_user.id
+    else
+      @tickets = Ticket.where(:date => @start_date..@end_date, :user_id => current_user.id)
+    end
+    
     response.headers['Content-Type'] = 'text/csv'
     response.headers['Content-Disposition'] = 'attachment; filename=tickets.csv'
     render text: tickets_to_csv(@tickets)
   end
 
+  def download24hour
+    start_date_post = params[:start_date]
+    end_date_post = params[:end_date]
+    start_str = start_date_post["year"].to_s + '-' + start_date_post["month"].to_s + '-' + start_date_post["day"].to_s
+    @start_date = Date.new start_date_post["year"].to_i, start_date_post["month"].to_i, start_date_post["day"].to_i
+
+    if current_user.id == 1 then
+      @tickets = Ticket.where(:date => @start_date..@start_date.tomorrow)
+    else
+      @tickets = Ticket.where(:date => @start_date..@start_date.tomorrow, :user_id => current_user.id)
+    end
+
+    response.headers['Content-Type'] = 'text/csv'
+    response.headers['Content-Disposition'] = 'attachment; filename=24from' + start_str + '.csv'
+    render text: tickets_to_csv(@tickets)
+  end
+
+
   def all24
     event = params[:date]
     @start_date = Date.new event["year"].to_i, event["month"].to_i, event["day"].to_i
-    @tickets = Ticket.where(:date => @start_date..@start_date.tomorrow)
+    
+    if current_user.id == 1 then
+      @tickets = Ticket.where(:date => @start_date..@start_date.tomorrow)
+    else
+      @tickets = Ticket.where(:date => @start_date..@start_date.tomorrow, :user_id => current_user.id)
+    end    
+    
   end
 
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    # Show all tickets if admin otherwise just tickets by user
+    if current_user.id == 1 then
+      @tickets = Ticket.all
+    else
+      @tickets = Ticket.where(:user_id => current_user.id)
+    end
   end
 
   # GET /tickets/1

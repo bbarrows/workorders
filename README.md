@@ -37,7 +37,34 @@ Add feature to pull up all Job Tickets and Entry with end time in set 24 hour ra
 
 Start time and End time are filled in and valid time
 
-TODO:
+What I did:
+Admin users
+    * Can do just one admin user/ preset username
+    * Can see all/ edit all
+  Regular users
+    * Can only mess with their own
+    TODO:
+        Add this to set_ticket in ticekts_Controller
+        
+* Figure out best way to send every 24 hours worth of data
+  Cron job every 24 hours upload last 24 hours csv to google docs
+  http://gimite.net/doc/google-drive-ruby/
+  
+* Made Create Entry button on ticket view page BIG, green or something / Other buttons as well like update entry in edit
+
+* Download last 24 hour (previous work day, not weekends, midnight + 24 hr) CSV button 
+
+* Make Entry shows as Year-Month-Day HH:MM Military time , no timezone
+    DateTime formatting:
+    https://hackhands.com/format-datetime-ruby/
+    t.strftime("%Y/%m/%d %H:%M:%S")
+    
+* Add First Last name to User
+* Use "First Last" (one cell) name in CSV instead of email
+
+
+
+Done:
 Export CSV
 	By day, group by user,
 

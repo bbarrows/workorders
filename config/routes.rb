@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   #resources :entries
   #resources :tickets
-  devise_for :users
+  #devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations' }
 
   #resources :tickets do
   #  member do
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
 
   post '/searchtickets' => 'tickets#searchtickets'
   post '/alltickets24' => 'tickets#all24'
+  post '/download24hour' => 'tickets#download24hour'
 
   get '/allentries' => 'entries#all'
 

@@ -43,6 +43,23 @@ View all tickets starting 24 hours after:
 <br>
 <hr>
 <p>
+Download all tickets in 24 range starting at:
+<%= form_tag(download24hour_path()) do %>
+  <div class="field">
+    <%= label_tag(:q, "Start date:") %><br>
+    <%= select_date Date.today, prefix: :start_date %>
+  </div>
+  <div class="actions">
+    <%= submit_tag("Download") %>
+  </div>
+<% end %>
+</p>
+
+
+
+<br>
+<hr>
+<p>
 Download CSV of all tickets and entries between:
 <%= form_tag(searchtickets_path()) do %>
   <div class="field">

@@ -53,8 +53,8 @@
   <tbody>
     <% @ticket.entries.each do |entry| %>
       <tr>
-        <td><%= entry.start %></td>
-        <td><%= entry.end %></td>
+        <td><%= entry.start.strftime("%Y/%m/%d %H:%M:%S") %></td>
+        <td><%= entry.end.strftime("%Y/%m/%d %H:%M:%S") %></td>
         <td><%= link_to 'Edit', edit_ticket_entry_path(@ticket, entry), class: 'btn btn-success' %></td>
         <td><%= link_to 'Destroy', ticket_entry_path(@ticket, entry), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>

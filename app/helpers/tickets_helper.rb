@@ -10,13 +10,15 @@ module TicketsHelper
       end
     end
 
+    user_columns = ["first", "last", "email"]
     wo_columns = Ticket.columns.map {|c| c.name }
     e_columns = Entry.columns.map {|c| c.name }
     CSV.generate do |csv|
-      columns = wo_columns + (e_columns * max_entries)
+      columns = user_columns + wo_columns + (e_columns * max_entries)
       csv << columns
       for t in tickets
-        row = t.attributes.values_at(*wo_columns)
+        row = t.user.attributes.values_at(*user_columns)
+        row += t.attributes.values_at(*wo_columns)
 
         for e in t.entries
           row += e.attributes.values_at(*e_columns)
