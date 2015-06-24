@@ -1,6 +1,6 @@
 class Ticket < ActiveRecord::Base
   belongs_to :user
-  has_many :entries
+  has_many :entries, dependent: :destroy
 
   def to_csv
   	wo_columns = Ticket.columns.map {|c| c.name }

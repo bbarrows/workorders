@@ -1,3 +1,11 @@
+TODO:
+
+Make sure all entry times ACROSS JOB TICKETS for the SAME USER do not conflict
+
+
+
+
+
 Following:
 
 https://www.railstutorial.org/book/user_microposts
@@ -31,7 +39,6 @@ rake db:migrate
 
 
 DONE:
-Make sure all entry times ACROSS JOB TICKETS for the SAME USER do not conflict
 
 Add feature to pull up all Job Tickets and Entry with end time in set 24 hour range
 
@@ -62,6 +69,12 @@ Admin users
 * Add First Last name to User
 * Use "First Last" (one cell) name in CSV instead of email
 
+To test this I created user:
+admin@admin.com
+with password: 
+password
+
+
 
 
 Done:
@@ -81,6 +94,9 @@ alias sshrackspace='ssh root@104.130.225.97'
 
 ai -y mysql-server-5.6 libmysqlclient-dev
 mysql -uroot -ppassword
+
+DROP DATABASE workorders;
+
 CREATE DATABASE workorders;
 
 su -  bbarrows
